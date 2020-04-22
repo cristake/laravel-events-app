@@ -7,15 +7,24 @@ use Spatie\ViewModels\ViewModel;
 
 class MoviesViewModel extends ViewModel
 {
+	public $trendingMovies;
 	public $popularMovies;
 	public $nowPlayingMovies;
 	public $genres;
 
-	public function __construct($popularMovies, $nowPlayingMovies, $genres)
+	public function __construct($trendingMovies, $popularMovies, $nowPlayingMovies, $genres)
 	{
+		$this->trendingMovies = $trendingMovies;
 		$this->popularMovies = $popularMovies;
 		$this->nowPlayingMovies = $nowPlayingMovies;
 		$this->genres = $genres;
+	}
+
+	public function trendingMovies()
+	{
+		return $this->formatMovies(
+			$this->trendingMovies
+		);
 	}
 
 	public function popularMovies()
@@ -51,18 +60,21 @@ class MoviesViewModel extends ViewModel
 			})->implode(', ');
 
 			return collect($movie)->merge([
-				// 'poster_path' => config('services.tmdb.imgPath') . '/w500' . $movie['poster_path'],
 				'poster_path' => $movie['poster_path']
 					? config('services.tmdb.imgPath') . '/w500/' . $movie['poster_path']
 					: 'https://via.placeholder.com/500x750',
 				'vote_average' => $movie['vote_average'] * 10 . '%',
 				'release_date' => Carbon::parse($movie['release_date'])->format('M d, Y'),
-				// 'vote_count' => number_format($movie['vote_count'], 0, ',', '.'),
-				'genres' => $genresFormated
-			])
-				->only([
-					'id', 'poster_path', 'vote_average', 'release_date', /*'vote_count',*/ 'genre_ids', 'title', 'genres'
-				]);
+				'genres' => $genresFormated,
+				'route' => isset($movie['media_type'])
+					? ($movie['media_type'] === 'tv'
+						? route('tv.show', $movie['id'])
+						: route('movies.show', $movie['id']))
+					: route('movies.show', $movie['id'])
+			]);
+			// ->only([
+			// 	'id', 'poster_path', 'vote_average', 'release_date', 'genre_ids', 'title', 'genres', 'media_type'
+			// ]);
 		});
 	}
 }

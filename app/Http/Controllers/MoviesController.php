@@ -16,6 +16,10 @@ class MoviesController extends Controller
      */
     public function index()
     {
+        $trendingMovies = Http::withToken(config('services.tmdb.token'))
+            ->get(config('services.tmdb.baseUrl') . "/trending/movie/week?language=" . config('services.tmdb.language'))
+            ->json()['results'];
+
         $popularMovies = Http::withToken(config('services.tmdb.token'))
             ->get(config('services.tmdb.baseUrl') . "/movie/popular?language=" . config('services.tmdb.language'))
             ->json()['results'];
@@ -28,9 +32,9 @@ class MoviesController extends Controller
             ->get(config('services.tmdb.baseUrl') . "/genre/movie/list?language=" . config('services.tmdb.language'))
             ->json()['genres'];
 
-        $viewModel = new MoviesViewModel($popularMovies, $nowPlayingMovies, $genres);
+        $viewModel = new MoviesViewModel($trendingMovies, $popularMovies, $nowPlayingMovies, $genres);
 
-        // dump($popularMovies);
+        // dd($nowPlayingMovies);
         return view('movies.index', $viewModel);
     }
 

@@ -21,7 +21,7 @@ class ViewMoviesTest extends TestCase
 		$response = $this->get(route('movies.index'));
 
 		$response->assertSuccessful();
-		$response->assertSee(__('Popular Movies in Romania'));
+		$response->assertSee(__('Popular Movies'));
 		$response->assertSee('Fake Movie');
 		$response->assertSee('Adventure, Drama, Mystery, Science Fiction, Thriller');
 		$response->assertSee('Now Playing');

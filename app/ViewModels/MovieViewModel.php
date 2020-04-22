@@ -18,7 +18,6 @@ class MovieViewModel extends ViewModel
 	public function movie()
 	{
 		return collect($this->movie)->merge([
-			// 'poster_path' => config('services.tmdb.imgPath') . '/w500' . $this->movie['poster_path'],
 			'poster_path' => $this->movie['poster_path']
 				? config('services.tmdb.imgPath') . '/w500/' . $this->movie['poster_path']
 				: 'https://via.placeholder.com/500x750',
@@ -33,10 +32,14 @@ class MovieViewModel extends ViewModel
 				html_entity_decode($this->movie['overview']),
 				'ro'
 			),
-			// 'title' => GoogleTranslate::trans($this->movie['title'], 'ro'),
-		])
-			->only([
-				'id', 'poster_path', 'vote_average', 'release_date', 'vote_count', 'genre_ids', 'title', 'overview', 'genres', 'credits', 'images', 'videos', 'crew', 'cast', 'backdrops'
-			]);
+			'route' => isset($this->movie['media_type'])
+				? ($this->movie['media_type'] === 'tv'
+					? route('tv.show', $this->movie['id'])
+					: route('movies.show', $this->movie['id']))
+				: route('movies.show', $this->movie['id'])
+		]);
+		// ->only([
+		// 	'id', 'poster_path', 'vote_average', 'release_date', 'vote_count', 'genre_ids', 'title', 'overview', 'genres', 'credits', 'images', 'videos', 'crew', 'cast', 'backdrops', 'media_type'
+		// ]);
 	}
 }

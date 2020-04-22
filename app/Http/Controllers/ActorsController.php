@@ -71,7 +71,7 @@ class ActorsController extends Controller
 
         $viewModel = new ActorViewModel($actor, $social, $credits);
 
-        // dump($credits);
+        // dd($credits);
         return view('actors.show', $viewModel);
     }
 

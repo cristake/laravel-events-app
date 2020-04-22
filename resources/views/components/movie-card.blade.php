@@ -1,5 +1,6 @@
 <div class="mt-8">
-	<a href="{{ route('movies.show', $movie['id']) }}">
+	<a 
+		href="{{ $movie['route'] }}">
 		<img src="{{ $movie['poster_path'] }}" alt="{{ $movie['title'] }}" class="w-full hover:opacity-75 transition ease-in-out duration-150">
 	</a>
 	<div class="mt-2">

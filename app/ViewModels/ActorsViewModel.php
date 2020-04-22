@@ -26,8 +26,8 @@ class ActorsViewModel extends ViewModel
                     'known_for' => collect($actor['known_for'])->where('media_type', 'movie')->pluck('title')->flatten()->union(
                         collect($actor['known_for'])->where('media_type', 'tv')->pluck('name')->flatten()
                     )->implode(', ')
-                ])
-                ->only(['id', 'name', 'profile_path', 'known_for']);
+                ]);
+            // ->only(['id', 'name', 'profile_path', 'known_for']);
         });
     }
 

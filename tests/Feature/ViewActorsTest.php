@@ -18,7 +18,8 @@ class ViewActorsTest extends TestCase
         $response = $this->get(route('actors.index'));
 
         $response->assertSuccessful();
-        $response->assertSee(__('Popular Actors in Romania'));
+        $response->assertSee(__('Popular Actors'));
+
         $response->assertSee('Will Smith');
         $response->assertSee('Independence Day, Suicide Squad, I am Legend');
 
@@ -36,7 +37,7 @@ class ViewActorsTest extends TestCase
         $response = $this->get('actors/page/2');
 
         $response->assertSuccessful();
-        $response->assertSee(__('Popular Actors in Romania'));
+        $response->assertSee(__('Popular Actors'));
         $response->assertSee('Will Smith 2');
         $response->assertSee('Independence Day 2, Suicide Squad 2, I am Legend 2');
 
