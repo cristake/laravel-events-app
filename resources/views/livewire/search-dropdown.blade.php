@@ -27,18 +27,23 @@
 			x-show.transition.opacity="isOpen" 
 			class="absolute z-50 bg-gray-800 text-sm rounded w-64 mt-4">
 			<ul>
-				@forelse ($searchResults as $movie)
+				@forelse ($searchResults as $result)
 					<li class="border-b border-gray-700">
 						<a 
 							@if($loop->last) @keydown.tab="isOpen = false" @endif
-							href="{{ route('movies.show', $movie['id']) }}" 
+							href="{{ isset($result['media_type']) 
+								? ($result['media_type'] === 'tv' ? route('tv.show', $result['id']) : route('movies.show', $result['id'])) 
+								: route('actors.show', $result['id']) 
+							}}" 
 							class="block hover:bg-gray-700 px-3 py-3 flex items-center">
-							@if( $movie['poster_path'] )
-								<img class="w-8" src="https://images.tmdb.org/t/p/w92/{{$movie['poster_path'] }}" alt="poster">
+							@if( isset($result['poster_path']) )
+								<img class="w-8" src="https://images.tmdb.org/t/p/w92/{{ $result['poster_path'] }}" alt="poster">
+							@elseif( isset($result['profile_path']) )
+								<img class="w-8" src="https://images.tmdb.org/t/p/w92/{{ $result['profile_path'] }}" alt="poster">
 							@else
 								<img class="w-8" src="https://via.placeholder.com/50x75" alt="poster">
 							@endif
-							<span class="ml-4">{{ $movie['title'] }}</span>
+							<span class="ml-4">{{ isset($result['title']) ? $result['title'] : $result['name'] }}</span>
 						</a>
 					</li>
 				@empty

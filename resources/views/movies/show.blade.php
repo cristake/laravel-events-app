@@ -77,7 +77,7 @@
 			<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8">
 				@foreach ($movie['cast'] as $actor)
 					<div class="mt-8">
-						<a href="#">
+						<a href="{{ route('actors.show', $actor['id']) }}">
 							@if( $actor['profile_path'] )
 								<img src="{{ 'https://image.tmdb.org/t/p/w300/'.$actor['profile_path'] }}" alt="{{ $actor['name'] }}" class="hover:opacity-75 transition ease-in-out duration-150">
 							@else
@@ -85,7 +85,7 @@
 							@endif
 						</a>
 						<div class="mt-2">
-							<a href="#" class="text-lg mt-2 hover:text-gray:300">{{ $actor['name'] }}</a>
+							<a href="{{ route('actors.show', $actor['id']) }}" class="text-lg mt-2 hover:text-gray:300">{{ $actor['name'] }}</a>
 							<div class="text-sm text-gray-400">
 								{{ $actor['character'] }}
 							</div>

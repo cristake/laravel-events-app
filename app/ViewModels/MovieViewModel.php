@@ -9,11 +9,11 @@ class MovieViewModel extends ViewModel
 {
 	public $movie;
 
-    public function __construct($movie)
-    {
-        $this->movie = $movie;
+	public function __construct($movie)
+	{
+		$this->movie = $movie;
 	}
-	
+
 	public function movie()
 	{
 		return collect($this->movie)->merge([
@@ -26,8 +26,8 @@ class MovieViewModel extends ViewModel
 			'cast' => collect($this->movie['credits']['cast'])->take(10),
 			'backdrops' => collect($this->movie['images']['backdrops'])->take(9),
 		])
-		->only([
-			'id', 'poster_path', 'vote_average', 'release_date', 'vote_count', 'genre_ids', 'title', 'overview', 'genres', 'credits', 'images', 'videos', 'crew', 'cast', 'backdrops'
-		]);
+			->only([
+				'id', 'poster_path', 'vote_average', 'release_date', 'vote_count', 'genre_ids', 'title', 'overview', 'genres', 'credits', 'images', 'videos', 'crew', 'cast', 'backdrops'
+			]);
 	}
 }

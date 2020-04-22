@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use Tests\TestCase;
+use Livewire\Livewire;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
@@ -20,7 +21,7 @@ class ViewMoviesTest extends TestCase
 		$response = $this->get(route('movies.index'));
 
 		$response->assertSuccessful();
-		$response->assertSee('Filme populare in Romania');
+		$response->assertSee(__('Popular Movies in Romania'));
 		$response->assertSee('Fake Movie');
 		$response->assertSee('Adventure, Drama, Mystery, Science Fiction, Thriller');
 		$response->assertSee('Now Playing');
