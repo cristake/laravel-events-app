@@ -31,7 +31,7 @@ class TvController extends Controller
         $viewModel = new TvViewModel(
             $popularTv,
             $topRatedTv,
-            $genres,
+            $genres
         );
 
         return view('tv.index', $viewModel);
