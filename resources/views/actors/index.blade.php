@@ -9,7 +9,7 @@
 				@foreach($popularActors as $actor)
 					<div class="actor mt-8">
 						<a href="{{ route('actors.show', $actor['id']) }}">
-							<img src="{{ $actor['profile_path'] }}" alt="profile image" class="hover:opacity-75 transitions ease-in-out duration-150">
+							<img src="{{ $actor['profile_path'] }}" alt="profile image" class="hover:opacity-75 w-full transitions ease-in-out duration-150">
 						</a>
 						<div class="mt-2">
 							<a href="{{ route('actors.show', $actor['id']) }}" class="text-lg hover:text-gray-300">{{ $actor['name'] }}</a>

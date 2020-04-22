@@ -6,7 +6,7 @@
 		@keydown="isOpen = true"
 		@keydown.shift.tab="isOpen = false"
 		type="text" 
-		class="bg-gray-800 rounded-full text-sm w-64 px-4 pl-8 py-1 focus:outline-none focus:shadow-outline" 
+		class="bg-gray-800 rounded-full text-md w-64 px-4 pl-8 py-1 focus:outline-none focus:shadow-outline" 
 		placeholder="{{ __('Search') }}"
 		x-ref="search"
 		@keydown.window="

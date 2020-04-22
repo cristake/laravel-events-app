@@ -37,10 +37,10 @@
                                 <small class="mx-4">|</small>
                                 <small>{{ __(':number Episodes', ['number' => $season['episode_count']]) }}</small>
                                 <div class="season-info container mx-auto px-4 py-4 flex flex-col md:flex-row">
-                                    <div class="season-image w-1/5">
-                                        <img src="{{ $season['poster_path'] }}" alt="poster" class="w-32 lg:w-64">
+                                    <div class="season-image md:w-1/5">
+                                        <img src="{{ $season['poster_path'] }}" alt="poster" class="md:w-32 md:w-64">
                                     </div>
-                                    <div class="season-overview ml-6 w-4/5">
+                                    <div class="season-overview md:ml-6 md:w-4/5">
                                         <h3 class="font-semibold text-2xl my-4">{{ __('Overview') }}</h3>
                                         <p>{{ $season['overview'] }}</p>
                                     </div>
