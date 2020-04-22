@@ -17,6 +17,7 @@
 				</div>
 				
 				<p class="text-gray-300 mt-8">{{ $movie['overview'] }}</p>
+                <span class="flex flex-row-reverse"><small class="text-gray-800 mt-4">{{ __('Translation provided by :provider', ['provider' => 'Google Translate']) }}</small></span>
 
 				<div class="mt-12">
 					<h4 class="text-white font-semibold">{{ __('Featured Crew') }}</h4>

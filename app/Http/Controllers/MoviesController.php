@@ -16,22 +16,22 @@ class MoviesController extends Controller
      */
     public function index()
     {
-		$popularMovies = Http::withToken(config('services.tmdb.token'))
-			->get(config('services.tmdb.baseUrl') . "/movie/popular?language=".config('services.tmdb.language')."&region=".config('services.tmdb.region'))
-			->json()['results'];
+        $popularMovies = Http::withToken(config('services.tmdb.token'))
+            ->get(config('services.tmdb.baseUrl') . "/movie/popular?language=" . config('services.tmdb.language'))
+            ->json()['results'];
 
-		$nowPlayingMovies = Http::withToken(config('services.tmdb.token'))
-			->get(config('services.tmdb.baseUrl') . "/movie/now_playing?language=".config('services.tmdb.language')."&region=".config('services.tmdb.region'))
-			->json()['results'];
+        $nowPlayingMovies = Http::withToken(config('services.tmdb.token'))
+            ->get(config('services.tmdb.baseUrl') . "/movie/now_playing?language=" . config('services.tmdb.language') . "&region=" . config('services.tmdb.region'))
+            ->json()['results'];
 
-		$genres = Http::withToken(config('services.tmdb.token'))
-			->get(config('services.tmdb.baseUrl') . "/genre/movie/list?language=".config('services.tmdb.language')."&region=".config('services.tmdb.region'))
-			->json()['genres'];
+        $genres = Http::withToken(config('services.tmdb.token'))
+            ->get(config('services.tmdb.baseUrl') . "/genre/movie/list?language=" . config('services.tmdb.language'))
+            ->json()['genres'];
 
-		$viewModel = new MoviesViewModel($popularMovies, $nowPlayingMovies, $genres);
+        $viewModel = new MoviesViewModel($popularMovies, $nowPlayingMovies, $genres);
 
-		// dump($popularMovies);
-		return view('movies.index', $viewModel);
+        // dump($popularMovies);
+        return view('movies.index', $viewModel);
     }
 
     /**
@@ -63,27 +63,16 @@ class MoviesController extends Controller
      */
     public function show($id)
     {
-		$movieData = Http::withToken(config('services.tmdb.token'))
-			->get(
-				config('services.tmdb.baseUrl') . "/movie/{$id}?language=".config('services.tmdb.language')."&region=".config('services.tmdb.region')
-			)
-			->json();
+        $movie = Http::withToken(config('services.tmdb.token'))
+            ->get(
+                config('services.tmdb.baseUrl') . "/movie/" . $id . "?append_to_response=credits,videos,images"
+            )
+            ->json();
 
-		$appendToMovie = Http::withToken(config('services.tmdb.token'))
-			->get(
-				config('services.tmdb.baseUrl') . "/movie/{$id}?append_to_response=credits,videos,images"
-			)
-			->json();
-		
-		$movie = array_merge(
-			$movieData, 
-			collect($appendToMovie)->only(['credits', 'videos', 'images'])->toArray()
-		);
+        $viewModel = new MovieViewModel($movie);
 
-		$viewModel = new MovieViewModel($movie);
-
-		// dump($movie);
-		return view('movies.show', $viewModel);
+        // dump($movie);
+        return view('movies.show', $viewModel);
     }
 
     /**

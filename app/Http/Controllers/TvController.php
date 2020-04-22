@@ -17,15 +17,15 @@ class TvController extends Controller
     public function index()
     {
         $popularTv = Http::withToken(config('services.tmdb.token'))
-            ->get(config('services.tmdb.baseUrl') . '/tv/popular?language=ro-RO&region=RO')
+            ->get(config('services.tmdb.baseUrl') . '/tv/popular?language=' . config('services.tmdb.language'))
             ->json()['results'];
 
         $topRatedTv = Http::withToken(config('services.tmdb.token'))
-            ->get(config('services.tmdb.baseUrl') . '/tv/top_rated?language=ro-RO&region=RO')
+            ->get(config('services.tmdb.baseUrl') . '/tv/top_rated?language=' . config('services.tmdb.language') . "&region=" . config('services.tmdb.region'))
             ->json()['results'];
 
         $genres = Http::withToken(config('services.tmdb.token'))
-            ->get(config('services.tmdb.baseUrl') . '/genre/tv/list?language=ro-RO&region=RO')
+            ->get(config('services.tmdb.baseUrl') . '/genre/tv/list?language=' . config('services.tmdb.language'))
             ->json()['genres'];
 
         $viewModel = new TvViewModel(
@@ -66,22 +66,11 @@ class TvController extends Controller
      */
     public function show($id)
     {
-        $thshowData = Http::withToken(config('services.tmdb.token'))
-            ->get(
-                config('services.tmdb.baseUrl') . "/tv/{$id}?language=" . config('services.tmdb.language') . "&region=" . config('services.tmdb.region')
-            )
-            ->json();
-
-        $appendToTvshow = Http::withToken(config('services.tmdb.token'))
+        $tvshow = Http::withToken(config('services.tmdb.token'))
             ->get(
                 config('services.tmdb.baseUrl') . "/tv/{$id}?append_to_response=credits,videos,images"
             )
             ->json();
-
-        $tvshow = array_merge(
-            $thshowData,
-            collect($appendToTvshow)->only(['credits', 'videos', 'images'])->toArray()
-        );
 
         $viewModel = new TvShowViewModel($tvshow);
 

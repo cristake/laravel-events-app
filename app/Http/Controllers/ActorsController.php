@@ -58,7 +58,7 @@ class ActorsController extends Controller
     public function show($id)
     {
         $actor = Http::withToken(config('services.tmdb.token'))
-            ->get(config('services.tmdb.baseUrl') . '/person/' . $id) // . '?language=' . config('services.tmdb.language'))
+            ->get(config('services.tmdb.baseUrl') . '/person/' . $id)
             ->json();
 
         $social = Http::withToken(config('services.tmdb.token'))
@@ -66,11 +66,12 @@ class ActorsController extends Controller
             ->json();
 
         $credits = Http::withToken(config('services.tmdb.token'))
-            ->get(config('services.tmdb.baseUrl') . '/person/' . $id . '/combined_credits')
+            ->get(config('services.tmdb.baseUrl') . '/person/' . $id . '/combined_credits?language=' . config('services.tmdb.language'))
             ->json();
 
         $viewModel = new ActorViewModel($actor, $social, $credits);
 
+        // dump($credits);
         return view('actors.show', $viewModel);
     }
 

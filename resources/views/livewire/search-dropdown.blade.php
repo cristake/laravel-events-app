@@ -31,9 +31,9 @@
 					<li class="border-b border-gray-700">
 						<a 
 							@if($loop->last) @keydown.tab="isOpen = false" @endif
-							href="{{ isset($result['media_type']) 
-								? ($result['media_type'] === 'tv' ? route('tv.show', $result['id']) : route('movies.show', $result['id'])) 
-								: route('actors.show', $result['id']) 
+							href="{{ $result['media_type'] === 'person'
+								? route('actors.show', $result['id']) 
+								: ($result['media_type'] === 'tv' ? route('tv.show', $result['id']) : route('movies.show', $result['id'])) 
 							}}" 
 							class="block hover:bg-gray-700 px-3 py-3 flex items-center">
 							@if( isset($result['poster_path']) )

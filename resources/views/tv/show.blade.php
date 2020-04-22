@@ -17,23 +17,54 @@
                     <span>{{ $tvshow['genres'] }}</span>
                 </div>
 
-                <p class="text-gray-300 mt-8">
-                    {{ $tvshow['overview'] }}
-                </p>
+                <div class="seasons container mx-auto px-4 py-16 flex flex-col md:flex-row">
+                    <div x-data="{ tab: 1 }">
+                        <ul class="flex border-gray-800 border-b">
+                            @foreach($tvshow['seasons'] as $season)
+                                <li class="text-center mr-1 text-gray-600 hover:text-gray-400">
+                                    <a 
+                                        @click.prevent="tab = {{ $season['season_number'] }}" 
+                                        :class="{ 'border-gray-800 border-l border-t border-r rounded-t text-gray-400': tab === {{ $season['season_number'] }} }"
+                                        class="bg-gray-800 hover:bg-gray-700 inline-block py-2 px-4 font-semibold" 
+                                        href="#">{{ $season['name'] }}</a>
+                                </li>
+                            @endforeach
+                        </ul>
 
-                <div class="mt-12">
+                        @foreach($tvshow['seasons'] as $season)
+                            <div x-show="tab === {{ $season['season_number'] }}" class="px-4 py-4">
+                                <small>{{ __('Premiered on :date', ['date' => $season['air_date']]) }}</small>
+                                <small class="mx-4">|</small>
+                                <small>{{ __(':number Episodes', ['number' => $season['episode_count']]) }}</small>
+                                <div class="season-info container mx-auto px-4 py-4 flex flex-col md:flex-row">
+                                    <div class="season-image w-1/5">
+                                        <img src="{{ $season['poster_path'] }}" alt="poster" class="w-32 lg:w-64">
+                                    </div>
+                                    <div class="season-overview ml-6 w-4/5">
+                                        <h3 class="font-semibold text-2xl my-4">{{ __('Overview') }}</h3>
+                                        <p>{{ $season['overview'] }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
+                </div>
+
+                {{-- <p class="text-gray-300 mt-8">{{ $tvshow['overview'] }}</p> --}}
+                <span class="flex flex-row-reverse"><small class="text-gray-800 mt-4">{{ __('Translation provided by :provider', ['provider' => 'Google Translate']) }}</small></span>
+
+                <div class="crew mt-12">
                     <div class="flex mt-4">
                         @foreach ($tvshow['created_by'] as $crew)
                             <div class="mr-8">
                                 <div>{{ $crew['name'] }}</div>
                                 <div class="text-sm text-gray-400">Creator</div>
                             </div>
-
                         @endforeach
                     </div>
                 </div>
 
-                <div x-data="{ isOpen: false }">
+                <div class="trailer" x-data="{ isOpen: false }">
                     @if (count($tvshow['videos']['results']) > 0)
                         <div class="mt-12">
                             <button

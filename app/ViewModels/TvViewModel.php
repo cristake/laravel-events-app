@@ -43,12 +43,14 @@ class TvViewModel extends ViewModel
             })->implode(', ');
 
             return collect($tvshow)->merge([
-                'poster_path' => config('services.tmdb.imgPath') . '/w500/' . $tvshow['poster_path'],
+                'poster_path' => $tvshow['poster_path']
+                    ? config('services.tmdb.imgPath') . '/w500/' . $tvshow['poster_path']
+                    : 'https://via.placeholder.com/500x750',
                 'vote_average' => $tvshow['vote_average'] * 10 . '%',
                 'first_air_date' => Carbon::parse($tvshow['first_air_date'])->format('M d, Y'),
                 'genres' => $genresFormatted,
             ])->only([
-                'poster_path', 'id', 'genre_ids', 'name', 'vote_average', 'overview', 'first_air_date', 'genres',
+                'poster_path', 'id', 'genre_ids', 'name', 'vote_average', 'first_air_date', 'genres',
             ]);
         });
     }

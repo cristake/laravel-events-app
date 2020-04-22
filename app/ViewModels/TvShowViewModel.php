@@ -4,6 +4,7 @@ namespace App\ViewModels;
 
 use Carbon\Carbon;
 use Spatie\ViewModels\ViewModel;
+use Stichoza\GoogleTranslate\GoogleTranslate;
 
 class TvShowViewModel extends ViewModel
 {
@@ -30,10 +31,26 @@ class TvShowViewModel extends ViewModel
                         : 'https://via.placeholder.com/300x450',
                 ]);
             }),
+            'overview' => GoogleTranslate::trans(
+                html_entity_decode($this->tvshow['overview']),
+                'ro'
+            ),
             'images' => collect($this->tvshow['images']['backdrops'])->take(9),
+            'seasons' => collect($this->tvshow['seasons'])->filter(function ($season) {
+                return $season['season_number'] !== 0;
+            })->map(function ($season) {
+                return collect($season)->merge([
+                    'poster_path' => config('services.tmdb.imgPath') . '/w500' . $season['poster_path'],
+                    'air_date' => Carbon::parse($season['air_date'])->format('d M Y'),
+                    'overview' => GoogleTranslate::trans(
+                        html_entity_decode($season['overview']),
+                        'ro'
+                    ),
+                ]);
+            })
         ])->only([
             'poster_path', 'id', 'genres', 'name', 'vote_average', 'overview', 'first_air_date', 'credits',
-            'videos', 'images', 'crew', 'cast', 'images', 'created_by'
+            'videos', 'images', 'crew', 'cast', 'images', 'created_by', 'seasons'
         ]);
     }
 }

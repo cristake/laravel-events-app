@@ -4,6 +4,7 @@ namespace App\ViewModels;
 
 use Carbon\Carbon;
 use Spatie\ViewModels\ViewModel;
+use Stichoza\GoogleTranslate\GoogleTranslate;
 
 class ActorViewModel extends ViewModel
 {
@@ -26,6 +27,10 @@ class ActorViewModel extends ViewModel
             'profile_path' => $this->actor['profile_path']
                 ? config('services.tmdb.imgPath') . '/w300/' . $this->actor['profile_path']
                 : 'https://via.placeholder.com/300x450',
+            'biography' => GoogleTranslate::trans(
+                html_entity_decode($this->actor['biography']),
+                'ro'
+            )
         ])->only([
             'birthday', 'age', 'profile_path', 'name', 'id', 'homepage', 'place_of_birth', 'biography'
         ]);
@@ -86,17 +91,23 @@ class ActorViewModel extends ViewModel
             } elseif (isset($movie['name'])) {
                 $title = $movie['name'];
             } else {
-                $title = 'Untitled';
+                $title = __('Untitled');
             }
 
             return collect($movie)->merge([
+                // 'poster_path' => config('services.tmdb.imgPath') . '/w500' . $movie['poster_path'],
+                'poster_path' => $movie['poster_path']
+                    ? config('services.tmdb.imgPath') . '/w500/' . $movie['poster_path']
+                    : 'https://via.placeholder.com/500x750',
+                'vote_average' => $movie['vote_average'] * 10 . '% (' . __('out of') . ' ' .  number_format($movie['vote_count'], 0, ',', '.') . ' ' . __('votes') . ')',
+                'genres' => collect($movie['genre_ids'])->pluck('name')->flatten()->implode(', '),
                 'release_date' => $releaseDate,
                 'release_year' => isset($releaseDate) ? Carbon::parse($releaseDate)->format('Y') : 'Future',
                 'title' => $title,
                 'character' => isset($movie['character']) ? $movie['character'] : '',
                 'linkToPage' => $movie['media_type'] === 'movie' ? route('movies.show', $movie['id']) : route('tv.show', $movie['id']),
             ])->only([
-                'release_date', 'release_year', 'title', 'character', 'linkToPage',
+                'id', 'poster_path', 'vote_average', 'release_date', 'release_year', 'title', 'character', 'linkToPage', 'genres'
             ]);
         })->sortByDesc('release_date');
     }
