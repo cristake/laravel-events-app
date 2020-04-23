@@ -6,6 +6,8 @@
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
 	<title>Movie App</title>
 
+    <link href="{{ asset('favicon.png') }}" rel="icon" type="image/x-icon">
+
 	<link rel="stylesheet" href="{{ asset('css/main.css') }}">
 	<livewire:styles>
 
