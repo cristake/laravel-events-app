@@ -1,13 +1,13 @@
 @extends('layouts.main')
 
 @section('content')
-	<div class="movie-info border-b border-gray-800">
+	<div class="movie-info border-b border-blue-800 container mx-auto pt-16 px-4 pb-16">
 		<div class="container mx-auto px-4 py-16 flex flex-col md:flex-row">
 			<img src="{{ $movie['poster_path'] }}" alt="{{ $movie['title'] }}" class="hover:opacity-75 transition ease-in-out duration-150">
 			<div class="md:ml-24">
 				<h2 class="text-4xl font-semibold">{{ $movie['title'] }}</h2>
 
-				<div class="flex flex-wrap items-center text-gray-400 text-sm">
+				<div class="flex flex-wrap items-center text-blue-400 text-sm">
 					<svg class="fill-current text-orange-500 w-4" viewBox="0 -51.747 27.857 26.568"><path d="M27.857-41.45c0 .245-.145.513-.435.803l-6.077 5.926 1.44 8.37c.01.079.016.19.016.335a.986.986 0 01-.175.595c-.118.162-.288.242-.511.242-.212 0-.435-.067-.67-.2L13.93-29.33l-7.517 3.95c-.246.134-.469.201-.67.201-.234 0-.41-.08-.527-.242a.986.986 0 01-.176-.595c0-.067.011-.178.034-.334l1.44-8.371-6.094-5.926c-.28-.302-.419-.57-.419-.804 0-.413.313-.67.938-.77l8.404-1.222 3.766-7.617c.212-.458.486-.687.82-.687.335 0 .609.23.82.687l3.768 7.617 8.404 1.222c.625.1.937.357.937.77zm0 0"/></svg>
 					<span class="ml-1">{{ $movie['vote_average'] }}</span>
 					<span class="mx-2">|</span>
@@ -16,8 +16,8 @@
 					<span>{{ $movie['genres'] }}</span>
 				</div>
 				
-				<p class="text-gray-300 mt-8">{{ $movie['overview'] }}</p>
-                <span class="flex flex-row-reverse"><small class="text-gray-800 mt-4">{{ __('Translation provided by :provider', ['provider' => 'Google Translate']) }}</small></span>
+				<p class="text-blue-300 mt-8">{{ $movie['overview'] }}</p>
+                <span class="flex flex-row-reverse"><small class="text-blue-800 mt-4">{{ __('Translation provided by :provider', ['provider' => 'Google Translate']) }}</small></span>
 
 				<div class="featured-crew mt-12">
 					<h4 class="text-white font-semibold">{{ __('Featured Crew') }}</h4>
@@ -25,7 +25,7 @@
 						@foreach ($movie['crew'] as $crew)
 							<div class="mr-8">
 								<div>{{ $crew['name'] }}</div>
-								<div class="text-sm text-gray-400">{{ $crew['job'] }}</div>
+								<div class="text-sm text-blue-400">{{ $crew['job'] }}</div>
 							</div>
 						@endforeach
 					</div>
@@ -36,7 +36,7 @@
 						<div class="mt-12">
 							<button 
 								@click="isOpen = true" 
-								class="flex inline-flex items-center bg-orange-500 text-gray-900 rounded font-semibold px-5 py-4 hover:bg-orange-600 transition ease-in-out duration-150">
+								class="flex inline-flex items-center bg-orange-500 text-blue-900 rounded font-semibold px-5 py-4 hover:bg-orange-600 transition ease-in-out duration-150">
 								<svg class="w-6 fill-current" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M10 16.5l6-4.5-6-4.5v9zM12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/></svg>
 								<span class="ml-2">{{ __('Play Trailer') }}</span>
 							</button>
@@ -48,12 +48,12 @@
 								class="fixed top-0 left-0 w-full h-full flex items-center shadow-lg overflow-y-auto"
 							>
 								<div class="container mx-auto lg:px-32 rounded-lg overflow-y-auto">
-									<div class="bg-gray-900 rounded">
+									<div class="bg-blue-900 rounded">
 										<div class="flex justify-end pr-4 pt-2">
 											<button
 												@click="isOpen = false"
 												@keydown.escape.window="isOpen = false"
-												class="text-3xl leading-none hover:text-gray-300">&times;
+												class="text-3xl leading-none hover:text-blue-300">&times;
 											</button>
 										</div>
 										<div class="modal-body px-8 py-8">
@@ -70,9 +70,9 @@
 
 				<div class="recommended-button">
 					<div class="mt-12">
-						<a class="flex inline-flex items-center bg-gray-800 text-gray-500 rounded font-semibold px-4 py-3 hover:bg-gray-700 transition ease-in-out duration-150" href="#recommendedMovies">
-							{{-- <svg / --}}
+						<a href="#recommendedMovies" class="flex inline-flex items-center bg-blue-800 text-blue-400 rounded font-semibold px-4 py-3 hover:bg-blue-700 transition ease-in-out duration-150">
 							{{ __('Recommended Movies') }}
+							<svg class="w-6 fill-current ml-4" viewBox="0 0 20 20"><path d="M17.418 6.109a.697.697 0 01.979 0 .68.68 0 010 .969l-7.908 7.83a.697.697 0 01-.979 0l-7.908-7.83a.68.68 0 010-.969.697.697 0 01.979 0L10 13.25l7.418-7.141z"/></svg>
 						</a>
 					</div>
 				</div>
@@ -80,7 +80,7 @@
 		</div>
 	</div> {{-- end movie-info --}}
 
-	<div class="movie-cast border-b border-gray-800">
+	<div class="movie-cast border-b border-blue-800">
 		<div class="container mx-auto px-4 py-16">
 			<h2 class="text-4xl font-semibold">{{ __('Cast') }}</h2>
 
@@ -96,7 +96,7 @@
 						</a>
 						<div class="mt-2">
 							<a href="{{ route('actors.show', $actor['id']) }}" class="text-lg mt-2 hover:text-gray:300">{{ $actor['name'] }}</a>
-							<div class="text-sm text-gray-400">
+							<div class="text-sm text-blue-400">
 								{{ $actor['character'] }}
 							</div>
 						</div>
@@ -106,7 +106,7 @@
 		</div>
 	</div> {{-- end movie-cast --}}
 
-	<div class="movie-images border-b border-gray-800" x-data="{ isOpen: false, image: ''}">
+	<div class="movie-images border-b border-blue-800" x-data="{ isOpen: false, image: ''}">
 		@if( count($movie['images']['backdrops']) > 0 )
 			<div class="container mx-auto px-4 py-16">
 				<h2 class="text-4xl font-semibold">{{ __('Images') }}</h2>
@@ -133,12 +133,12 @@
 					x-show.transition.opacity="isOpen"
 				>
 					<div class="container mx-auto lg:px-32 rounded-lg overflow-y-auto">
-						<div class="bg-gray-900 rounded">
+						<div class="bg-blue-900 rounded">
 							<div class="flex justify-end pr-4 pt-2">
 								<button
 									@click="isOpen = false"
 									@keydown.escape.window="isOpen = false"
-									class="text-3xl leading-none hover:text-gray-300">&times;
+									class="text-3xl leading-none hover:text-blue-300">&times;
 								</button>
 							</div>
 							<div class="modal-body px-8 py-8">
@@ -160,7 +160,7 @@
 						<a href="{{ route('movies.show', $recommendedMovie['id']) }}">
 							<img src="{{ $recommendedMovie['poster_path'] }}" alt="poster" class="hover:opacity-75 transition ease-in-out duration-150">
 						</a>
-						<a href="{{ route('movies.show', $recommendedMovie['id']) }}" class="text-md leading-normal block text-gray-400 hover:text-white mt-1">
+						<a href="{{ route('movies.show', $recommendedMovie['id']) }}" class="text-md leading-normal block text-blue-400 hover:text-white mt-1">
 							{{ $recommendedMovie['title'] }}
 						</a>
 						<div class="text-sm mt-2 flex flex-wrap items-center">

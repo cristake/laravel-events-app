@@ -1,7 +1,7 @@
 @extends('layouts.main')
 
 @section('content')
-	<div class="container mx-auto px-4 py-16">
+	<div class="container mx-auto pt-32 px-4 pb-16">
 		<div class="popular-actors">
 			<h2 class="uppercase tracking-wider text-orange-500 text-lg font-semibold">{{ __('Popular Actors') }}</h2>
 
@@ -12,8 +12,8 @@
 							<img src="{{ $actor['profile_path'] }}" alt="profile image" class="w-full hover:opacity-75 transitions ease-in-out duration-150">
 						</a>
 						<div class="mt-2">
-							<a href="{{ route('actors.show', $actor['id']) }}" class="text-lg hover:text-gray-300">{{ $actor['name'] }}</a>
-							<div class="text-sm truncate text-gray-400">{{ $actor['known_for'] }}</div>
+							<a href="{{ route('actors.show', $actor['id']) }}" class="text-lg hover:text-blue-300">{{ $actor['name'] }}</a>
+							<div class="text-sm truncate text-blue-400">{{ $actor['known_for'] }}</div>
 						</div>
 					</div>
 				@endforeach

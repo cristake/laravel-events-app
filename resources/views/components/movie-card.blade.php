@@ -4,7 +4,7 @@
 		<img src="{{ $movie['poster_path'] }}" alt="{{ $movie['title'] }}" class="w-full hover:opacity-75 transition ease-in-out duration-150">
 	</a>
 	<div class="mt-2">
-		<a href="#" class="text-lg mt-2 hover:text-gray-300">{{ $movie['title'] }}</a>
+		<a href="#" class="text-lg mt-2 hover:text-blue-300">{{ $movie['title'] }}</a>
 		@unless( Request::is('actori/*') )
 			<div class="flex items-center text-gray-400 text-sm mt-1">
 				@if( isset($movie['vote_average']) )
@@ -14,10 +14,10 @@
 				@endif
 				<span>{{ $movie['release_date'] }}</span>
 			</div>
-			<div class="text-gray-400 text-sm">{{ $movie['genres'] }}</div>
+			<div class="text-blue-400 text-sm">{{ $movie['genres'] }}</div>
 		@else
-			<small class="text-gray-600">({{ $movie['release_year'] }})</small>
-			<div class="text-gray-400 text-sm">{{ __('as') }} {{ $movie['character'] }}</div>
+			<small class="text-blue-600">({{ $movie['release_year'] }})</small>
+			<div class="text-blue-400 text-sm">{{ __('as') }} {{ $movie['character'] }}</div>
 		@endunless
 	</div>
 </div>
