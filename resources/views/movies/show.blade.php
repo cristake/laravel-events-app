@@ -19,7 +19,7 @@
 				<p class="text-gray-300 mt-8">{{ $movie['overview'] }}</p>
                 <span class="flex flex-row-reverse"><small class="text-gray-800 mt-4">{{ __('Translation provided by :provider', ['provider' => 'Google Translate']) }}</small></span>
 
-				<div class="mt-12">
+				<div class="featured-crew mt-12">
 					<h4 class="text-white font-semibold">{{ __('Featured Crew') }}</h4>
 					<div class="flex mt-4">
 						@foreach ($movie['crew'] as $crew)
@@ -66,6 +66,15 @@
 							</div>
 						</template>
 					@endif
+				</div>
+
+				<div class="recommended-button">
+					<div class="mt-12">
+						<a class="flex inline-flex items-center bg-gray-800 text-gray-500 rounded font-semibold px-4 py-3 hover:bg-gray-700 transition ease-in-out duration-150" href="#recommendedMovies">
+							{{-- <svg / --}}
+							{{ __('Recommended Movies') }}
+						</a>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -142,7 +151,7 @@
 		@endif
 	</div> {{-- end movie-images --}}
 
-	<div class="recommended-movies">
+	<div class="recommended-movies" id="recommendedMovies">
 		<div class="container mx-auto px-4 py-16">
 			<h2 class="text-3xl font-semibold">{{ __('Recommended Movies') }}</h2>
 			<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-8">
