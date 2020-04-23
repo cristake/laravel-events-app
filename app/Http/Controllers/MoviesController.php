@@ -75,7 +75,7 @@ class MoviesController extends Controller
 
         $viewModel = new MovieViewModel($movie);
 
-        // dump($movie);
+        // dd($movie);
         return view('movies.show', $viewModel);
     }
 

@@ -100,7 +100,7 @@ class ActorViewModel extends ViewModel
                 // 'poster_path' => config('services.tmdb.imgPath') . '/w500' . $movie['poster_path'],
                 'poster_path' => $movie['poster_path']
                     ? config('services.tmdb.imgPath') . '/w500/' . $movie['poster_path']
-                    : 'https://via.placeholder.com/500x750?text=' . $movie['title'],
+                    : 'https://via.placeholder.com/500x750?text=' . $title,
                 'vote_average' => $movie['vote_average'] * 10 . '% (' . __('out of') . ' ' .  number_format($movie['vote_count'], 0, ',', '.') . ' ' . __('votes') . ')',
                 'genres' => collect($movie['genre_ids'])->pluck('name')->flatten()->implode(', '),
                 'release_date' => $releaseDate,
