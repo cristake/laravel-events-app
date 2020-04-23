@@ -45,7 +45,7 @@ class TvViewModel extends ViewModel
             return collect($tvshow)->merge([
                 'poster_path' => $tvshow['poster_path']
                     ? config('services.tmdb.imgPath') . '/w500/' . $tvshow['poster_path']
-                    : 'https://via.placeholder.com/500x750',
+                    : 'https://via.placeholder.com/500x750?text=' . $tvshow['name'],
                 'vote_average' => $tvshow['vote_average'] * 10 . '%',
                 'first_air_date' => Carbon::parse($tvshow['first_air_date'])->format('M d, Y'),
                 'genres' => $genresFormatted,

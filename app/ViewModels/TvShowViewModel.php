@@ -20,7 +20,7 @@ class TvShowViewModel extends ViewModel
         return collect($this->tvshow)->merge([
             'poster_path' => $this->tvshow['poster_path']
                 ? config('services.tmdb.imgPath') . '/w500/' . $this->tvshow['poster_path']
-                : 'https://via.placeholder.com/500x750',
+                : 'https://via.placeholder.com/500x750?text=' . $this->tvshow['title'],
             'vote_average' => $this->tvshow['vote_average'] * 10 . '%',
             'first_air_date' => Carbon::parse($this->tvshow['first_air_date'])->format('M d, Y'),
             'genres' => collect($this->tvshow['genres'])->pluck('name')->flatten()->implode(', '),
@@ -28,7 +28,7 @@ class TvShowViewModel extends ViewModel
                 return collect($cast)->merge([
                     'profile_path' => $cast['profile_path']
                         ? config('services.tmdb.imgPath') . '/w300' . $cast['profile_path']
-                        : 'https://via.placeholder.com/300x450',
+                        : 'https://via.placeholder.com/300x450?text=' . $cast['name'],
                 ]);
             }),
             'overview' => GoogleTranslate::trans(
@@ -40,7 +40,9 @@ class TvShowViewModel extends ViewModel
                 return $season['season_number'] !== 0;
             })->map(function ($season) {
                 return collect($season)->merge([
-                    'poster_path' => config('services.tmdb.imgPath') . '/w500' . $season['poster_path'],
+                    'poster_path' => $season['poster_path']
+                        ? config('services.tmdb.imgPath') . '/w500/' . $season['poster_path']
+                        : 'https://via.placeholder.com/500x750?text=' . $season['name'],
                     'air_date' => Carbon::parse($season['air_date'])->format('d M Y'),
                     'overview' => GoogleTranslate::trans(
                         html_entity_decode($season['overview']),

@@ -62,7 +62,7 @@ class MoviesViewModel extends ViewModel
 			return collect($movie)->merge([
 				'poster_path' => $movie['poster_path']
 					? config('services.tmdb.imgPath') . '/w500/' . $movie['poster_path']
-					: 'https://via.placeholder.com/500x750',
+					: 'https://via.placeholder.com/500x750?text=' . $movie['title'],
 				'vote_average' => $movie['vote_average'] * 10 . '%',
 				'release_date' => Carbon::parse($movie['release_date'])->format('M d, Y'),
 				'genres' => $genresFormated,

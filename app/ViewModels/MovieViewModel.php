@@ -18,10 +18,10 @@ class MovieViewModel extends ViewModel
 	public function movie()
 	{
 		return collect($this->movie)->merge([
-			'poster_path' => $this->movie['poster_path']
+			'poster_path' => isset($this->movie['poster_path'])
 				? config('services.tmdb.imgPath') . '/w500/' . $this->movie['poster_path']
-				: 'https://via.placeholder.com/500x750',
-			'vote_average' => $this->movie['vote_average'] * 10 . '% (' . __('out of') . ' ' .  number_format($this->movie['vote_count'], 0, ',', '.') . ' ' . __('votes') . ')',
+				: 'https://via.placeholder.com/500x750?text=' . $this->movie['title'],
+			'vote_average' => isset($this->movie['vote_average']) ? $this->movie['vote_average'] * 10 . '% (' . __('out of') . ' ' .  number_format($this->movie['vote_count'], 0, ',', '.') . ' ' . __('votes') . ')' : '',
 			'release_date' => Carbon::parse($this->movie['release_date'])->format('M d, Y'),
 			'vote_count' => number_format($this->movie['vote_count'], 0, ',', '.'),
 			'genres' => collect($this->movie['genres'])->pluck('name')->flatten()->implode(', '),

@@ -22,18 +22,19 @@ class ActorViewModel extends ViewModel
     public function actor()
     {
         return collect($this->actor)->merge([
-            'birthday' => Carbon::parse($this->actor['birthday'])->format('d M Y'),
+            'birthday' => $this->actor['birthday'] ? Carbon::parse($this->actor['birthday'])->format('d M Y') : null,
             'age' => Carbon::parse($this->actor['birthday'])->age,
             'profile_path' => $this->actor['profile_path']
                 ? config('services.tmdb.imgPath') . '/w300/' . $this->actor['profile_path']
-                : 'https://via.placeholder.com/300x450',
+                : 'https://ui-avatars.com/api/?size=300&name=' . $this->actor['name'],
             'biography' => GoogleTranslate::trans(
                 html_entity_decode($this->actor['biography']),
                 'ro'
             )
-        ])->only([
-            'birthday', 'age', 'profile_path', 'name', 'id', 'homepage', 'place_of_birth', 'biography'
         ]);
+        // ->only([
+        //     'birthday', 'age', 'profile_path', 'name', 'id', 'homepage', 'place_of_birth', 'biography'
+        // ]);
     }
 
     public function social()
@@ -63,7 +64,7 @@ class ActorViewModel extends ViewModel
             return collect($movie)->merge([
                 'poster_path' => $movie['poster_path']
                     ? config('services.tmdb.imgPath') . '/w185' . $movie['poster_path']
-                    : 'https://via.placeholder.com/185x278',
+                    : 'https://via.placeholder.com/185x278?text=' . $title,
                 'title' => $title,
                 'linkToPage' => $movie['media_type'] === 'movie' ? route('movies.show', $movie['id']) : route('tv.show', $movie['id'])
             ]);
@@ -99,7 +100,7 @@ class ActorViewModel extends ViewModel
                 // 'poster_path' => config('services.tmdb.imgPath') . '/w500' . $movie['poster_path'],
                 'poster_path' => $movie['poster_path']
                     ? config('services.tmdb.imgPath') . '/w500/' . $movie['poster_path']
-                    : 'https://via.placeholder.com/500x750',
+                    : 'https://via.placeholder.com/500x750?text=' . $movie['title'],
                 'vote_average' => $movie['vote_average'] * 10 . '% (' . __('out of') . ' ' .  number_format($movie['vote_count'], 0, ',', '.') . ' ' . __('votes') . ')',
                 'genres' => collect($movie['genre_ids'])->pluck('name')->flatten()->implode(', '),
                 'release_date' => $releaseDate,
@@ -107,6 +108,11 @@ class ActorViewModel extends ViewModel
                 'title' => $title,
                 'character' => isset($movie['character']) ? $movie['character'] : '',
                 'linkToPage' => $movie['media_type'] === 'movie' ? route('movies.show', $movie['id']) : route('tv.show', $movie['id']),
+                'route' => isset($movie['media_type'])
+                    ? ($movie['media_type'] === 'tv'
+                        ? route('tv.show', $movie['id'])
+                        : route('movies.show', $movie['id']))
+                    : route('movies.show', $movie['id'])
             ]);
             // ->only([
             //     'id', 'poster_path', 'vote_average', 'release_date', 'release_year', 'title', 'character', 'linkToPage', 'genres', 'media_type'

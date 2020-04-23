@@ -22,7 +22,7 @@ class ActorsViewModel extends ViewModel
                 ->merge([
                     'profile_path' => $actor['profile_path']
                         ? config('services.tmdb.imgPath') . '/w235_and_h235_face' . $actor['profile_path']
-                        : 'https://ui-avatars.com/api/?size=235?name=' . $actor['name'],
+                        : 'https://ui-avatars.com/api/?size=235&name=' . $actor['name'],
                     'known_for' => collect($actor['known_for'])->where('media_type', 'movie')->pluck('title')->flatten()->union(
                         collect($actor['known_for'])->where('media_type', 'tv')->pluck('name')->flatten()
                     )->implode(', ')
