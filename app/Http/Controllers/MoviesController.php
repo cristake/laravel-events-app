@@ -81,11 +81,7 @@ class MoviesController extends Controller
 
         $viewModel = new MovieViewModel($movie, $recommendedMovies);
 
-<<<<<<< HEAD
         // dd($movie);
-=======
-        // dump($recommendedMovies);
->>>>>>> develop
         return view('movies.show', $viewModel);
     }
 
