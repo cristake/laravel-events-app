@@ -31,7 +31,7 @@
 					</div>
 				</div>
 
-				<div x-data="{ isOpen: false }">
+				<div class="trailer-button" x-data="{ isOpen: false }">
 					@if( count($movie['videos']['results']) > 0 )
 						<div class="mt-12">
 							<button 
@@ -97,7 +97,7 @@
 		</div>
 	</div> {{-- end movie-cast --}}
 
-	<div class="movie-images" x-data="{ isOpen: false, image: ''}">
+	<div class="movie-images border-b border-gray-800" x-data="{ isOpen: false, image: ''}">
 		@if( count($movie['images']['backdrops']) > 0 )
 			<div class="container mx-auto px-4 py-16">
 				<h2 class="text-4xl font-semibold">{{ __('Images') }}</h2>
@@ -141,4 +141,26 @@
 			</div>
 		@endif
 	</div> {{-- end movie-images --}}
+
+	<div class="recommended-movies">
+		<div class="container mx-auto px-4 py-16">
+			<h2 class="text-3xl font-semibold">{{ __('Recommended Movies') }}</h2>
+			<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-8">
+				@foreach ($recommendedMovies as $recommendedMovie)
+					<div class="mt-4">
+						<a href="{{ route('movies.show', $recommendedMovie['id']) }}">
+							<img src="{{ $recommendedMovie['poster_path'] }}" alt="poster" class="hover:opacity-75 transition ease-in-out duration-150">
+						</a>
+						<a href="{{ route('movies.show', $recommendedMovie['id']) }}" class="text-md leading-normal block text-gray-400 hover:text-white mt-1">
+							{{ $recommendedMovie['title'] }}
+						</a>
+						<div class="text-sm mt-2 flex flex-wrap items-center">
+							<svg class="fill-current text-orange-500 w-3" viewBox="0 -51.747 27.857 26.568"><path d="M27.857-41.45c0 .245-.145.513-.435.803l-6.077 5.926 1.44 8.37c.01.079.016.19.016.335a.986.986 0 01-.175.595c-.118.162-.288.242-.511.242-.212 0-.435-.067-.67-.2L13.93-29.33l-7.517 3.95c-.246.134-.469.201-.67.201-.234 0-.41-.08-.527-.242a.986.986 0 01-.176-.595c0-.067.011-.178.034-.334l1.44-8.371-6.094-5.926c-.28-.302-.419-.57-.419-.804 0-.413.313-.67.938-.77l8.404-1.222 3.766-7.617c.212-.458.486-.687.82-.687.335 0 .609.23.82.687l3.768 7.617 8.404 1.222c.625.1.937.357.937.77zm0 0"/></svg>
+							<span class="ml-1">{{ $recommendedMovie['vote_average'] }}</span>
+						</div>
+					</div>
+				@endforeach
+			</div>
+		</div>
+	</div> {{-- end recommended-movies --}}
 @endsection

@@ -9,10 +9,12 @@ use Stichoza\GoogleTranslate\GoogleTranslate;
 class MovieViewModel extends ViewModel
 {
 	public $movie;
+	public $recommendedMovies;
 
-	public function __construct($movie)
+	public function __construct($movie, $recommendedMovies)
 	{
 		$this->movie = $movie;
+		$this->recommendedMovies = $recommendedMovies;
 	}
 
 	public function movie()
@@ -41,5 +43,19 @@ class MovieViewModel extends ViewModel
 		// ->only([
 		// 	'id', 'poster_path', 'vote_average', 'release_date', 'vote_count', 'genre_ids', 'title', 'overview', 'genres', 'credits', 'images', 'videos', 'crew', 'cast', 'backdrops', 'media_type'
 		// ]);
+	}
+
+	public function recommendedMovies()
+	{
+		return collect($this->recommendedMovies)->map(function ($movie) {
+			return collect($movie)->merge([
+				'poster_path' => $movie['poster_path']
+					? config('services.tmdb.imgPath') . '/w185/' . $movie['poster_path']
+					: 'https://via.placeholder.com/185x270?text=' . $movie['title'],
+				'vote_average' => $movie['vote_average'] * 10 . '% (' . __('out of') . ' ' .  number_format($movie['vote_count'], 0, ',', '.') . ' ' . __('votes') . ')',
+			]);
+		})
+			->sortByDesc('popularity')
+			->take(10);
 	}
 }

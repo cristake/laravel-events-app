@@ -73,9 +73,19 @@ class MoviesController extends Controller
             )
             ->json();
 
-        $viewModel = new MovieViewModel($movie);
+        $recommendedMovies = Http::withToken(config('services.tmdb.token'))
+            ->get(
+                config('services.tmdb.baseUrl') . "/movie/" . $id . "/recommendations"
+            )
+            ->json()['results'];
 
+        $viewModel = new MovieViewModel($movie, $recommendedMovies);
+
+<<<<<<< HEAD
         // dd($movie);
+=======
+        // dump($recommendedMovies);
+>>>>>>> develop
         return view('movies.show', $viewModel);
     }
 
