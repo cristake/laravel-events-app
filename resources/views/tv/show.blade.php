@@ -1,12 +1,12 @@
 @extends('layouts.main')
 
 @section('content')
-	<div class="tv-info border-b border-blue-800 container mx-auto pt-16 px-4 pb-16">
-        <div class="container mx-auto px-4 py-16 flex flex-col md:flex-row">
-            <div class="flex-none">
-                <img src="{{ $tvshow['poster_path'] }}" alt="parasite" class="w-64 lg:w-96">
-            </div>
-            <div class="md:ml-24">
+	<div class="movie-info border-b border-blue-800 container mx-auto pt-8 px-4 md:px-8 lg:px-16 pb-16">
+		<div class="container flex flex-col md:flex-row md:items-start">
+            {{-- <div class="flex-none md:w-2/5 "> --}}
+                <img src="{{ $tvshow['poster_path'] }}" alt="parasite" class="w-full md:w-2/5">
+            {{-- </div> --}}
+            <div class="xl:ml-16 lg:ml-12 md:ml-8 md:w-3/5">
                 <h2 class="text-4xl mt-4 md:mt-0 font-semibold">{{ $tvshow['name'] }}</h2>
                 <div class="flex flex-wrap items-center text-blue-400 text-sm">
                     <svg class="fill-current text-orange-500 w-4" viewBox="0 0 24 24"><g data-name="Layer 2"><path d="M17.56 21a1 1 0 01-.46-.11L12 18.22l-5.1 2.67a1 1 0 01-1.45-1.06l1-5.63-4.12-4a1 1 0 01-.25-1 1 1 0 01.81-.68l5.7-.83 2.51-5.13a1 1 0 011.8 0l2.54 5.12 5.7.83a1 1 0 01.81.68 1 1 0 01-.25 1l-4.12 4 1 5.63a1 1 0 01-.4 1 1 1 0 01-.62.18z" data-name="star"/></g></svg>
@@ -15,42 +15,46 @@
                     <span>{{ $tvshow['first_air_date'] }}</span>
                     <span class="mx-2">|</span>
                     <span>{{ $tvshow['genres'] }}</span>
+                    <span class="mx-2">|</span>
+                    <span>{{ __(':count Seasons', ['count' => count($tvshow['seasons'])]) }}</span>
                 </div>
 
-                <div class="seasons container mx-auto px-4 py-16 flex flex-col md:flex-row">
+                {{-- <div class="seasons container mx-auto px-4 py-8 flex flex-col md:flex-row">
                     <div x-data="{ tab: 1 }">
-                        <ul class="flex border-blue-800 border-b">
+                        <ul class="flex border-blue-800 border-b flex flex-col lg:flex-row">
                             @foreach($tvshow['seasons'] as $season)
                                 <li class="text-center mr-1 text-blue-600 hover:text-blue-400">
                                     <a 
                                         @click.prevent="tab = {{ $season['season_number'] }}" 
                                         :class="{ 'border-blue-800 border-l border-t border-r rounded-t text-blue-400': tab === {{ $season['season_number'] }} }"
-                                        class="bg-blue-800 hover:bg-blue-700 inline-block py-2 px-4 font-semibold" 
+                                        class="w-full bg-blue-800 hover:bg-blue-700 py-2 px-4 inline-block font-semibold" 
                                         href="#">{{ $season['name'] }}</a>
                                 </li>
                             @endforeach
                         </ul>
 
                         @foreach($tvshow['seasons'] as $season)
-                            <div x-show="tab === {{ $season['season_number'] }}" class="px-4 py-4">
+                            <div x-show="tab === {{ $season['season_number'] }}" class="mt-4">
                                 <small>{{ __('Premiered on :date', ['date' => $season['air_date']]) }}</small>
                                 <small class="mx-4">|</small>
                                 <small>{{ __(':number Episodes', ['number' => $season['episode_count']]) }}</small>
-                                <div class="season-info container mx-auto px-4 py-4 flex flex-col md:flex-row">
+                                <div class="season-info container mx-auto py-4 flex flex-col md:flex-row">
                                     <div class="season-image md:w-1/5">
                                         <img src="{{ $season['poster_path'] }}" alt="poster" class="md:w-32 md:w-64">
                                     </div>
-                                    <div class="season-overview md:ml-6 md:w-4/5">
-                                        <h3 class="font-semibold text-2xl my-4">{{ __('Overview') }}</h3>
-                                        <p>{{ $season['overview'] }}</p>
-                                    </div>
+                                    @if( strlen($season['overview']) > 0 )
+                                        <div class="season-overview md:ml-6 md:w-4/5">
+                                            <h3 class="font-semibold text-2xl my-4">{{ __('Overview') }}</h3>
+                                            <p>{{ $season['overview'] }}</p>
+                                        </div>
+                                    @endif
                                 </div>
                             </div>
                         @endforeach
                     </div>
-                </div>
+                </div> --}}
 
-                {{-- <p class="text-blue-300 mt-8">{{ $tvshow['overview'] }}</p> --}}
+                <p class="text-blue-300 mt-8">{{ $tvshow['overview'] }}</p>
                 <span class="flex flex-row-reverse"><small class="text-blue-800 mt-4">{{ __('Translation provided by :provider', ['provider' => 'Google Translate']) }}</small></span>
 
                 <div class="crew mt-12">

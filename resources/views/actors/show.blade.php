@@ -1,11 +1,11 @@
 @extends('layouts.main')
 
 @section('content')
-	<div class="actor-info border-b border-blue-800 container mx-auto pt-16 px-4 pb-16">
-		<div class="container mx-auto px-4 py-16 flex flex-col md:flex-row">
-			<div class="flex-none">
-				<img src="{{ $actor['profile_path'] }}" alt="{{ $actor['name'] }}" class="w-76">
-				<ul class="flex items-center mt-4">
+	<div class="movie-info border-b border-blue-800 container mx-auto pt-8 px-4 md:px-8 lg:px-16 pb-16">
+		<div class="container flex flex-col md:flex-row md:items-start">
+			<div class="flex-none md:w-2/5">
+				<img src="{{ $actor['profile_path'] }}" alt="{{ $actor['name'] }}" class="w-full lg:w-76">
+				<ul class="flex items-center my-4">
 					@if ($social['facebook'])
                         <li>
                             <a href="{{ $social['facebook'] }}" title="Facebook">
@@ -40,7 +40,7 @@
 				</ul>
 			</div>
 
-			<div class="md:ml-24">
+			<div class="xl:ml-16 lg:ml-12 md:ml-8 md:w-3/5">
 				<h2 class="text-4xl font-semibold">{{ $actor['name'] }}</h2>
 
 				<div class="flex flex-wrap items-center text-blue-400 text-sm">
@@ -52,10 +52,10 @@
                 <span class="flex flex-row-reverse"><small class="text-blue-800 mt-4">{{ __('Translation provided by :provider', ['provider' => 'Google Translate']) }}</small></span>
 
 				<h4 class="font-semibold mt-12">{{ __('Known For') }}</h4>
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-8">
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8">
                     @foreach ($knownForMovies as $movie)
                         <div class="mt-4">
-                            <a href="{{ $movie['linkToPage'] }}"><img src="{{ $movie['poster_path'] }}" alt="poster" class="hover:opacity-75 transition ease-in-out duration-150"></a>
+                            <a href="{{ $movie['linkToPage'] }}"><img src="{{ $movie['poster_path'] }}" alt="poster" class="w-full hover:opacity-75 transition ease-in-out duration-150"></a>
                             <a href="{{ $movie['linkToPage'] }}" class="text-sm leading-normal block text-blue-400 hover:text-white mt-1">{{ $movie['title'] }}</a>
                         </div>
                     @endforeach

@@ -24,5 +24,8 @@
     "Translation provided by :provider": "Traducere realizată cu :provider",
     "Premiered on :date": "Data premierei :date",
     ":number Episodes": ":number episoade",
-    "Overview": "Prezentare"
+    ":count Seasons": ":count sezoane",
+    "Overview": "Prezentare",
+    "Recommended Movies": "Filme recomandate",
+    "Similar Movies": "Filme similare"
 }

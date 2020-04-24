@@ -1,7 +1,7 @@
 @extends('layouts.main')
 
 @section('content')
-	<div class="container mx-auto pt-32 px-4 pb-16">
+	<div class="container mx-auto pt-8 px-4 md:px-8 lg:px-16 pb-16">
 		<div class="popular-actors">
 			<h2 class="uppercase tracking-wider text-orange-500 text-lg font-semibold">{{ __('Popular Actors') }}</h2>
 
