@@ -1,10 +1,10 @@
 @extends('layouts.main')
 
 @section('content')
-	<div class="movie-info border-b border-blue-800 container mx-auto pt-16 px-4 pb-16">
-		<div class="container mx-auto px-4 py-16 flex flex-col md:flex-row">
-			<img src="{{ $movie['poster_path'] }}" alt="{{ $movie['title'] }}" class="hover:opacity-75 transition ease-in-out duration-150">
-			<div class="md:ml-24">
+	<div class="movie-info border-b border-blue-800 container mx-auto pt-8 px-4 md:px-8 lg:px-16 pb-16">
+		<div class="container flex flex-col md:flex-row md:items-start">
+			<img src="{{ $movie['poster_path'] }}" alt="{{ $movie['title'] }}" class="w-full h-auto md:w-2/5 hover:opacity-75 transition ease-in-out duration-150">
+			<div class="xl:ml-16 lg:ml-12 md:ml-8 md:w-3/5">
 				<h2 class="text-4xl font-semibold">{{ $movie['title'] }}</h2>
 
 				<div class="flex flex-wrap items-center text-blue-400 text-sm">
@@ -158,7 +158,7 @@
 				@foreach ($recommendedMovies as $recommendedMovie)
 					<div class="mt-4">
 						<a href="{{ route('movies.show', $recommendedMovie['id']) }}">
-							<img src="{{ $recommendedMovie['poster_path'] }}" alt="poster" class="hover:opacity-75 transition ease-in-out duration-150">
+							<img src="{{ $recommendedMovie['poster_path'] }}" alt="poster" class="w-full hover:opacity-75 transition ease-in-out duration-150">
 						</a>
 						<a href="{{ route('movies.show', $recommendedMovie['id']) }}" class="text-md leading-normal block text-blue-400 hover:text-white mt-1">
 							{{ $recommendedMovie['title'] }}

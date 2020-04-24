@@ -12,10 +12,10 @@
 	<livewire:styles>
 
 	<script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
-	{{-- <script type="module" src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js"></script> --}}
-	{{-- <script nomodule src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine-ie11.min.js" defer></script> --}}
+	{{-- <script type="module" src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js"></script>
+	<script nomodule src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine-ie11.min.js" defer></script> --}}
 </head>
-<body id="top" class="font-sans bg-blue-900 text-white" x-data="{ atTop: true }">
+<body id="top" class="font-sans bg-blue-900 text-white" x-data="{ atTop: true }"> <!---->
 	@include('layouts.partials.nav')
 
 	@yield('content')
