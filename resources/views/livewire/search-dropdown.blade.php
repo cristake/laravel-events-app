@@ -6,7 +6,7 @@
 		@keydown="isOpen = true"
 		@keydown.shift.tab="isOpen = false"
 		type="text" 
-		class="bg-blue-800 rounded-full text-md w-64 px-4 pl-8 py-1 focus:outline-none focus:shadow-outline" 
+		class="bg-blue-800 rounded-full text-md w-64 md:w-48 px-4 pl-8 py-1 focus:outline-none focus:shadow-outline" 
 		placeholder="{{ __('Search') }}"
 		x-ref="search"
 		@keydown.window="
@@ -25,7 +25,7 @@
 	@if( strlen($search) >= 2 )
 		<div 
 			x-show.transition.opacity="isOpen" 
-			class="absolute z-50 bg-blue-800 text-sm rounded w-64 mt-4">
+			class="absolute z-50 bg-blue-800 text-sm rounded w-64 md:w-48 mt-4">
 			<ul>
 				@forelse ($searchResults as $result)
 					<li class="border-b border-blue-700">
