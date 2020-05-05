@@ -46,13 +46,25 @@
 				</ul>
 			</li> -->
 			<li class="mr-4 py-1">
-				<a class="inline-block focus:ouline-none" href="{{ route('movies.index') }}" class="hover:text-blue-300">{{ __('Movies') }}</a>
+				<a 
+					class="inline-block focus:ouline-none hover:text-blue-300 {{ Request::is('filme') ? 'border-b-4 border-orange-500' : '' }}" 
+					href="{{ route('movies.index') }}" >
+					{{ __('Movies') }}
+				</a>
 			</li>
 			<li class="mr-4 py-1">
-				<a class="inline-block focus:ouline-none" href="{{ route('tv.index') }}" class="hover:text-blue-300">{{ __('TV Shows') }}</a>
+				<a 
+					class="inline-block focus:ouline-none hover:text-blue-300 {{ Request::is('seriale') ? 'border-b-4 border-orange-500' : '' }}" 
+					href="{{ route('tv.index') }}" >
+					{{ __('TV Shows') }}
+				</a>
 			</li>
 			<li class="mr-4 py-1">
-				<a class="inline-block focus:ouline-none" href="{{ route('actors.index') }}" class="hover:text-blue-300">{{ __('Actors') }}</a>
+				<a 
+					class="inline-block focus:ouline-none hover:text-blue-300 {{ Request::is('actori') ? 'border-b-4 border-orange-500' : '' }}" 
+					href="{{ route('actors.index') }}" >
+					{{ __('Actors') }}
+				</a>
 			</li>
 		</ul>
 
